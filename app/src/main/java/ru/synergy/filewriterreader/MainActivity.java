@@ -1,5 +1,6 @@
 package ru.synergy.filewriterreader;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         FileOutputStream fos = null;
 
         try {
-        EditText textBox = (EditText) view.findViewById(R.id.editor);
+        EditText textBox = (EditText) findViewById(R.id.appEditor);
         String text = textBox.getText().toString();
 
             fos = openFileOutput(File_Name, MODE_PRIVATE);
@@ -58,9 +59,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     // открытие файла
-    public void openText (View view){
+    public void openText ( View view){
         FileInputStream fin = null;
-        TextView textView = (TextView) view.findViewById(R.id.text);
+        TextView textView = (TextView) findViewById(R.id.text);
 
         try {
             fin = openFileInput(File_Name);
