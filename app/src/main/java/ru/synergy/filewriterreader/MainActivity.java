@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -29,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    private File getExternalFilePath(){
+        return new File(getExternalFilesDir(null), File_Name);
+    }
+
     //Сохранение файла
     public void saveText(View view){
         FileOutputStream fos = null;
@@ -37,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         EditText textBox = (EditText) findViewById(R.id.appEditor);
         String text = textBox.getText().toString();
 
-            fos = openFileOutput(File_Name, MODE_PRIVATE);
+            fos =  new FileOutputStream(getExternalFilePath());    // openFileOutput(File_Name, MODE_PRIVATE);
             fos.write(text.getBytes());
             Toast.makeText(this, "Файл успешно сохранен", Toast.LENGTH_LONG).show();
         } catch (FileNotFoundException e) {
@@ -63,8 +68,10 @@ public class MainActivity extends AppCompatActivity {
         FileInputStream fin = null;
         TextView textView = (TextView) findViewById(R.id.text);
 
+        File file = getExternalFilePath();
+
         try {
-            fin = openFileInput(File_Name);
+            fin = new FileInputStream(file); // openFileInput(File_Name);
             byte[] bytes = new byte[fin.available()];
             fin.read(bytes);
             String text = new String(bytes);
